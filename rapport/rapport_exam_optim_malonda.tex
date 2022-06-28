@@ -1,0 +1,51 @@
+\documentclass[12pt]{article}
+\input{/Users/ClementMalonda/Documents/Licence/Fiche/lib/general}
+\usepackage[frenchb]{babel}
+% \usepackage[english]{babel}
+
+\begin{document}
+\title{Examen Optimisation}
+\author{Clément \textsc{Malonda}}
+% \date{}
+\maketitle
+
+\lstset{language=python}
+
+\section*{Présentation du problème}
+
+Optimiser la fonction suivante :
+$$f(\omega) = 418,9829\times D - \sum_{i=1}^{D}\omega_i \times \sin(\sqrt{|\omega_i|})$$
+où $D$ est la dimension du problème. Dans notre cas, nous allons utiliser $D = 1$, $D = 2$ et $D = 10$, avec respectivement
+\begin{itemize}
+    \item[\textbullet] $\omega_0 = 20$,
+    \item[\textbullet] $\omega_0 = [-20, 20]$
+    \item[\textbullet]et $\omega_0 = [20, 20, -20, 20, -20, 20, 20, 20, 20, 20]$.
+\end{itemize}
+
+\section{Implémentation de la fonction et de son gradient}
+\begin{lstlisting}
+def f(w):
+    res = 418.9829 * w.shape[0]
+    sum = 0
+    for i in range(w.shape[0]):
+        sum = sum + w[i] * np.sin(np.sqrt(np.abs(w[i])))
+    return res - sum
+\end{lstlisting}
+
+\begin{lstlisting}
+def grad(w):
+    res = 0
+    for i in range(w.shape[0]):
+        res = res + (w[i]**2 + np.cos(np.sqrt(np.abs(w[i])))) / (2*np.abs(w[i])**(3/2)) + np.sin(np.sqrt(np.abs(w[i])))
+    return res
+\end{lstlisting}
+
+\section{Dimension 1}
+
+\section{Dimension 2}
+
+\section{Dimension 10}
+
+
+
+\end{document}
