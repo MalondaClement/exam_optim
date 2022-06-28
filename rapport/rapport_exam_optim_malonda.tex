@@ -18,9 +18,9 @@ $$f(\omega) = 418,9829\times D - \sum_{i=1}^{D}\omega_i \times \sin(\sqrt{|\omeg
 
 où $D$ est la dimension du problème. Dans notre cas, nous allons utiliser $D = 1$, $D = 2$ et $D = 10$, avec respectivement
 \begin{itemize}
-    \item[\textbullet] $\omega_0 = 20$,
-    \item[\textbullet] $\omega_0 = [-20, 20]$
-    \item[\textbullet]et $\omega_0 = [20, 20, -20, 20, -20, 20, 20, 20, 20, 20]$.
+    \item[\textbullet] $\omega = 20$,
+    \item[\textbullet] $\omega = [-20, 20]$
+    \item[\textbullet]et $\omega = [20, 20, -20, 20, -20, 20, 20, 20, 20, 20]$.
 \end{itemize}
 
 Pour l'ensemble du sujet, j'ai fait le choix d'utiliser l'algorithme de descente de gradient avec momentum.
@@ -43,20 +43,49 @@ def grad(w):
     return res
 \end{lstlisting}
 
-\section{Problème en dimension 1}
-
-Dans le cas où $D=1$ la solution arrive en 33 itération.
-
+\section*{Problème en dimension 1}
 \begin{lstlisting}
+w0 = np.array([20])
+lr = 0.7
 res_1 = gd2_momentum(w0, grad, lr, max_iter=33)
 \end{lstlisting}
 
-\imgLarge{img/Figure_1.png}{legende}
+\imgLarge{img/Figure_1.png}{Solution pour un problème de dimension 1}
 
-\section{Problème en dimension 2}
+Dans le cas où $D=1$ la solution arrive en 33 itération avec un learning rate fixé à $0,7$. La figure \ref{img:img/Figure_1.png} montre le profil de la fonction $f$ en bleu et les étapes de la solutions en rouge. La solution finale est $w = -0.04144376$.
 
-\section{Problème en dimension 10}
+\newpage
+\section*{Problème en dimension 2}
 
+\begin{lstlisting}
+w0 = np.array([-20, 20])
+lr = 0.6
+res_2 = gd2_momentum(w0, grad, lr, max_iter=22)
+\end{lstlisting}
+
+\imgLarge{img/Figure_2.png}{Solution pour un problème de dimension 2}
+
+Dans le cas où $D=2$ la solution semble diverger avec learning rate fixé à $0,7$ et 22 itérations. La figure \ref{img:img/Figure_2.png} montre le profil de la fonction $f$ sous forme de courbe de niveau et les étapes de la solutions en rouge. La solution finale est $w = [-39.1737414, 0.8262586]$.
+
+Nous pouvons constater que la solution diverge, la valeur $\omega_2$ semble tendre vers 0 mais $\omega_2$ non.
+
+Dans le cas d'un point de départ en $\omega = [-20, 20]$ alors on converge en 23 itération avec le même learning rate (cf. Figure \ref{img:img/Figure_2bis.png}).
+
+\imgLarge{img/Figure_2bis.png}{Autre test pour le problème de dimension 2}
+
+\newpage
+\section*{Problème en dimension 10}
+\begin{lstlisting}
+w0 = np.array([20, 20, -20, 20, -20, 20, 20, 20, 20, 20])
+lr = 0.1
+res_2 = gd2_momentum(w0, grad, lr, max_iter=10)
+\end{lstlisting}
+
+w = [ 16.52988674, 16.52988674, -23.47011326, 16.52988674 -23.47011326
+, 16.52988674, 16.52988674, 16.52988674, 16.52988674, 16.52988674]
+
+
+\newpage
 \section*{Fonction de gradient avec momentum}
 
 \begin{lstlisting}

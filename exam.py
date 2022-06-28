@@ -26,14 +26,13 @@ def gd2_momentum(x, grad, alpha, beta=0.9, max_iter=10):
     return xs
 
 def main():
-    lr = 0.7
-
     ## Dim 1
     print("Dim 1")
     plt.figure(1)
 
     #calcul de la solution
     w0 = np.array([20])
+    lr = 0.7
     res_1 = gd2_momentum(w0, grad, lr, max_iter=33)
 
     #plot
@@ -47,6 +46,7 @@ def main():
 
     plt.plot(x,y)
     plt.plot(res_1, res_1_y, 'o-', c='red')
+    plt.title("Dimension 1")
 
     print("w final: {}".format(res_1[-1]))
     print("")
@@ -54,26 +54,34 @@ def main():
     ## Dim 2
     plt.figure(2)
     w0 = np.array([-20, 20])
-    res_2 = gd2_momentum(w0, grad, lr, max_iter=33)
+    lr = 0.6
+    res_2 = gd2_momentum(w0, grad, lr, max_iter=22)
 
     #plot
-    # x = np.linspace(-20, 20, 100)
-    # y = np.linspace(-20, 20, 100)
-    # X, Y = np.meshgrid(x, y)
-    # z = np.zeros((x.shape[0], y.shape[0]))
-    # for i in range(x.shape[0]):
-    #     for j in range(y.shape[0]):
-    #         z[i, j] = f(np.array([x[i], y[j]]))
-    # levels = [0.1,1,2,4,9, 16, 25, 36, 49, 64, 81, 100, 1000]
-    # c = plt.contour(X, Y, z, levels)
+    x = np.linspace(-20, 20, 100)
+    y = np.linspace(-20, 20, 100)
+    X, Y = np.meshgrid(x, y)
+    z = np.zeros((x.shape[0], y.shape[0]))
+    for i in range(x.shape[0]):
+        for j in range(y.shape[0]):
+            z[i, j] = f(np.array([x[i], y[j]]))
+    print(np.min(z))
+    print(np.max(z))
+    levels = [790, 800, 810, 815, 820, 825, 830, 835, 840, 845, 850, 860, 870, 880, 890]
+    c = plt.contour(X, Y, z, levels)
+    plt.plot(res_2[:, 0], res_2[:, 1], 'o-', c='red')
+    plt.title("Dimension 2")
 
+    print("w final: {}".format(res_2[-1, :]))
+    # print(res_2)
     print("")
 
     ## Dim 10
-    plt.figure(3)
     w0 = np.array([20, 20, -20, 20, -20, 20, 20, 20, 20, 20])
+    lr = 0.1
+    res_2 = gd2_momentum(w0, grad, lr, max_iter=10)
     # res_10 = gd2_momentum(w0, grad, lr, max_iter=33)
-
+    print("w final: {}".format(res_2[-1, :]))
     plt.show()
 
 if __name__ == "__main__":
