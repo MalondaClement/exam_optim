@@ -15,12 +15,15 @@
 
 Optimiser la fonction suivante :
 $$f(\omega) = 418,9829\times D - \sum_{i=1}^{D}\omega_i \times \sin(\sqrt{|\omega_i|})$$
+
 où $D$ est la dimension du problème. Dans notre cas, nous allons utiliser $D = 1$, $D = 2$ et $D = 10$, avec respectivement
 \begin{itemize}
     \item[\textbullet] $\omega_0 = 20$,
     \item[\textbullet] $\omega_0 = [-20, 20]$
     \item[\textbullet]et $\omega_0 = [20, 20, -20, 20, -20, 20, 20, 20, 20, 20]$.
 \end{itemize}
+
+Pour l'ensemble du sujet, j'ai fait le choix d'utiliser l'algorithme de descente de gradient avec momentum.
 
 \section{Implémentation de la fonction et de son gradient}
 \begin{lstlisting}
@@ -40,12 +43,34 @@ def grad(w):
     return res
 \end{lstlisting}
 
-\section{Dimension 1}
+\section{Problème en dimension 1}
 
-\section{Dimension 2}
+Dans le cas où $D=1$ la solution arrive en 33 itération.
 
-\section{Dimension 10}
+\begin{lstlisting}
+res_1 = gd2_momentum(w0, grad, lr, max_iter=33)
+\end{lstlisting}
 
+\imgLarge{img/Figure_1.png}{legende}
+
+\section{Problème en dimension 2}
+
+\section{Problème en dimension 10}
+
+\section*{Fonction de gradient avec momentum}
+
+\begin{lstlisting}
+def gd2_momentum(x, grad, alpha, beta=0.9, max_iter=10):
+    xs = np.zeros((1 + max_iter, x.shape[0]))
+    xs[0, :] = x
+    v = 0
+    for i in range(max_iter):
+        v = beta*v + (1-beta)*grad(x)
+        vc = v/(1+beta**(i+1))
+        x = x - alpha * vc
+        xs[i+1, :] = x
+    return xs
+\end{lstlisting}
 
 
 \end{document}
