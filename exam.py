@@ -79,9 +79,8 @@ def main():
     ## Dim 10
     w0 = np.array([20, 20, -20, 20, -20, 20, 20, 20, 20, 20])
     lr = 0.1
-    res_2 = gd2_momentum(w0, grad, lr, max_iter=10)
-    # res_10 = gd2_momentum(w0, grad, lr, max_iter=33)
-    print("w final: {}".format(res_2[-1, :]))
+    res_10 = gd2_momentum(w0, grad, lr, max_iter=10)
+    print("w final: {}".format(res_10[-1, :]))
     plt.show()
 
 if __name__ == "__main__":
